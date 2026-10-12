@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#0284C7</color>
+    <color name="primary_dark">#0369A1</color>
+    <color name="accent">#F59E0B</color>
+    <color name="yemen_red">#CE1126</color>
+    <color name="yemen_black">#000000</color>
+    <color name="yemen_white">#FFFFFF</color>
+    <color name="success">#10B981</color>
+    <color name="background">#F8FAFC</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_main">#0F172A</color>
+    <color name="text_secondary">#475569</color>
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">أقرأها صح – تعلّم العربية</string>
+    <string name="welcome_message">مرحباً بك في تطبيق أقرأها صح لتعليم العربية</string>
+    <string name="offline_tag">يعمل محلياً بالكامل 100% دون إنترنت</string>
+    <string name="select_grade">اختر الصف الدراسي</string>
+    <string name="grade_1">الصف الأول الابتدائي</string>
+    <string name="grade_2">الصف الثاني الابتدائي</string>
+    <string name="grade_3">الصف الثالث الابتدائي</string>
+    <string name="grade_4">الصف الرابع الابتدائي</string>
+    <string name="grade_5">الصف الخامس الابتدائي</string>
+    <string name="grade_6">الصف السادس الابتدائي</string>
+    <string name="lesson_title">الدروس والوحدات</string>
+    <string name="letters_library">مكتبة الحروف الهجائية</string>
+    <string name="tracing_board">لوحة التتبع والكتابة</string>
+    <string name="interactive_activities">الأنشطة والألعاب</string>
+    <string name="parent_dashboard">لوحة ولي الأمر والتقدم</string>
+    <string name="audio_offline_note">يتم نطق الكلمات والحروف عبر محرك النطق المحلي الخاص بالجهاز.</string>
+</resources>

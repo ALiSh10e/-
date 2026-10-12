@@ -1,0 +1,6 @@
+{
+  "name": "لغتي اليمنية – تعلّم العربية",
+  "description": "تطبيق تعليمي تفاعلي لتعليم اللغة العربية لتلاميذ المرحلة الابتدائية في اليمن (الصفوف 1-6) يعمل محلياً دون إنترنت مع مشروع أندرويد متكامل.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
