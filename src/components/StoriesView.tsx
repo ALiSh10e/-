@@ -13,8 +13,21 @@ import {
   HelpCircle,
   Award,
   BookmarkCheck,
-  RotateCcw
+  RotateCcw,
+  Search,
+  ChevronRight
 } from 'lucide-react';
+
+// Helper function to shuffle array items randomly
+function shuffleArray<T>(array: T[]): T[] {
+  if (!array || array.length <= 1) return array ? [...array] : [];
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
 interface StoriesViewProps {
   progress: StudentProgress;
@@ -34,6 +47,20 @@ export const StoriesView: React.FC<StoriesViewProps> = ({
   const [isAnswerChecked, setIsAnswerChecked] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [statusFilter, setStatusFilter] = useState<'all' | 'unread' | 'read'>('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const STORIES_PER_PAGE = 12;
+
+  // Randomized options for story comprehension question
+  const shuffledStoryOptions = React.useMemo(() => {
+    if (!activeStory || !activeStory.comprehensionQuestion?.options) return [];
+    return shuffleArray(activeStory.comprehensionQuestion.options);
+  }, [activeStory?.id]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [selectedGradeId, searchQuery, statusFilter]);
 
   useEffect(() => {
     const unsub = offlineAudioService.subscribeSpeakingChange((speaking) => {
@@ -42,7 +69,29 @@ export const StoriesView: React.FC<StoriesViewProps> = ({
     return () => unsub();
   }, []);
 
-  const currentGradeStories = ALL_STORIES[selectedGradeId] || ALL_STORIES[1];
+  const rawGradeStories = ALL_STORIES[selectedGradeId] || ALL_STORIES[1];
+
+  const filteredStories = rawGradeStories.filter(story => {
+    const matchesSearch =
+      searchQuery.trim() === '' ||
+      story.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      story.moral.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      story.grammarFocus.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      story.content.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const isRead = progress.readStories.includes(story.id);
+    let matchesStatus = true;
+    if (statusFilter === 'read') matchesStatus = isRead;
+    if (statusFilter === 'unread') matchesStatus = !isRead;
+
+    return matchesSearch && matchesStatus;
+  });
+
+  const totalPages = Math.ceil(filteredStories.length / STORIES_PER_PAGE) || 1;
+  const paginatedStories = filteredStories.slice(
+    (currentPage - 1) * STORIES_PER_PAGE,
+    currentPage * STORIES_PER_PAGE
+  );
 
   const openStory = (story: StoryItem) => {
     setActiveStory(story);
@@ -143,67 +192,178 @@ export const StoriesView: React.FC<StoriesViewProps> = ({
         })}
       </div>
 
-      {/* Stories Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
-        {currentGradeStories.map(story => {
-          const isRead = progress.readStories.includes(story.id);
-          return (
-            <div
-              key={story.id}
-              className={`p-4 rounded-2xl border transition-all flex flex-col justify-between ${
-                isRead
-                  ? 'bg-emerald-50/40 border-emerald-300 shadow-2xs'
-                  : 'bg-white border-slate-200 hover:border-slate-300 shadow-xs'
+      {/* Search & Status Filter Controls */}
+      <div className="bg-white rounded-2xl p-3 sm:p-4 border border-slate-200 shadow-xs flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        {/* Search */}
+        <div className="relative flex-1">
+          <Search className="w-4 h-4 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="ابحث في قصص هذا الصف (بالعنوان، القيمة، أو القواعد)..."
+            className="w-full pr-9 pl-8 py-2 text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl focus:outline-hidden focus:ring-2 focus:ring-emerald-400 focus:bg-white transition-all text-slate-800"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery('')}
+              className="absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
+            >
+              <X className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+
+        {/* Status Filter Chips */}
+        <div className="flex items-center gap-1.5 shrink-0 overflow-x-auto no-scrollbar">
+          {[
+            { id: 'all', label: `الكل (${filteredStories.length})` },
+            { id: 'unread', label: 'غير المقروءة' },
+            { id: 'read', label: 'المكتملة' }
+          ].map(f => (
+            <button
+              key={f.id}
+              onClick={() => {
+                setStatusFilter(f.id as any);
+                offlineAudioService.playClickSound();
+              }}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all border whitespace-nowrap ${
+                statusFilter === f.id
+                  ? 'bg-emerald-600 text-white border-emerald-600 shadow-2xs'
+                  : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
               }`}
             >
-              <div>
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-xs font-black text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded-lg">
-                    قصة #{story.storyNumber}
-                  </span>
-                  {isRead && (
-                    <span className="flex items-center gap-1 text-[11px] text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded-full">
-                      <CheckCircle2 className="w-3.5 h-3.5" />
-                      مكتملة
-                    </span>
-                  )}
-                </div>
+              {f.label}
+            </button>
+          ))}
+        </div>
+      </div>
 
-                <h3 className="font-bold text-slate-900 text-base mb-1.5 line-clamp-1">
-                  {story.title}
-                </h3>
-
-                <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-3">
-                  {story.content}
-                </p>
-
-                <div className="space-y-1 mb-3 pt-2 border-t border-slate-100 text-[11px]">
-                  <div className="text-slate-500">
-                    <span className="font-bold text-slate-700">القيمة: </span>
-                    {story.moral}
-                  </div>
-                  <div className="text-slate-500">
-                    <span className="font-bold text-slate-700">القواعد: </span>
-                    {story.grammarFocus}
-                  </div>
-                </div>
-              </div>
-
-              <button
-                onClick={() => openStory(story)}
-                className={`w-full py-2 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 ${
+      {/* Stories Grid */}
+      {paginatedStories.length === 0 ? (
+        <div className="bg-white rounded-2xl p-8 text-center border border-slate-200 text-slate-500 space-y-2">
+          <BookOpen className="w-8 h-8 text-slate-300 mx-auto" />
+          <p className="text-sm font-bold">لا توجد قصص مطابقة لبحثك</p>
+          <p className="text-xs text-slate-400">جرّب البحث بكلمة أخرى أو تبديل خيارات التصفية.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
+          {paginatedStories.map(story => {
+            const isRead = progress.readStories.includes(story.id);
+            return (
+              <div
+                key={story.id}
+                className={`p-4 rounded-2xl border transition-all flex flex-col justify-between ${
                   isRead
-                    ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
-                    : 'bg-slate-900 hover:bg-slate-800 text-white'
+                    ? 'bg-emerald-50/40 border-emerald-300 shadow-2xs'
+                    : 'bg-white border-slate-200 hover:border-slate-300 shadow-xs'
                 }`}
               >
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>{isRead ? 'إعادة قراءة القصة' : 'اقرأ القصة'}</span>
-              </button>
-            </div>
-          );
-        })}
-      </div>
+                <div>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-xs font-black text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded-lg">
+                      قصة #{story.storyNumber}
+                    </span>
+                    {isRead && (
+                      <span className="flex items-center gap-1 text-[11px] text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded-full">
+                        <CheckCircle2 className="w-3.5 h-3.5" />
+                        مكتملة
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 className="font-bold text-slate-900 text-base mb-1.5 line-clamp-1">
+                    {story.title}
+                  </h3>
+
+                  <p className="text-xs text-slate-600 line-clamp-2 leading-relaxed mb-3">
+                    {story.content}
+                  </p>
+
+                  <div className="space-y-1 mb-3 pt-2 border-t border-slate-100 text-[11px]">
+                    <div className="text-slate-500">
+                      <span className="font-bold text-slate-700">القيمة: </span>
+                      {story.moral}
+                    </div>
+                    <div className="text-slate-500">
+                      <span className="font-bold text-slate-700">القواعد: </span>
+                      {story.grammarFocus}
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => openStory(story)}
+                  className={`w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 min-h-[40px] active:scale-95 ${
+                    isRead
+                      ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                      : 'bg-slate-900 hover:bg-slate-800 text-white'
+                  }`}
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>{isRead ? 'إعادة قراءة القصة' : 'اقرأ واستمع للقصة'}</span>
+                </button>
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="bg-white rounded-2xl p-3 border border-slate-200 shadow-xs flex items-center justify-between gap-2">
+          <button
+            onClick={() => {
+              if (currentPage > 1) {
+                setCurrentPage(prev => prev - 1);
+                offlineAudioService.playClickSound();
+              }
+            }}
+            disabled={currentPage === 1}
+            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold text-xs disabled:opacity-40 disabled:pointer-events-none transition-all"
+          >
+            <ChevronRight className="w-4 h-4" />
+            <span>الصفحة السابقة</span>
+          </button>
+
+          <div className="flex items-center gap-1">
+            {Array.from({ length: totalPages }).map((_, idx) => {
+              const pageNum = idx + 1;
+              const isCurrent = pageNum === currentPage;
+              return (
+                <button
+                  key={pageNum}
+                  onClick={() => {
+                    setCurrentPage(pageNum);
+                    offlineAudioService.playClickSound();
+                  }}
+                  className={`w-8 h-8 rounded-xl text-xs font-bold transition-all ${
+                    isCurrent
+                      ? 'bg-emerald-600 text-white shadow-xs'
+                      : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'
+                  }`}
+                >
+                  {pageNum}
+                </button>
+              );
+            })}
+          </div>
+
+          <button
+            onClick={() => {
+              if (currentPage < totalPages) {
+                setCurrentPage(prev => prev + 1);
+                offlineAudioService.playClickSound();
+              }
+            }}
+            disabled={currentPage === totalPages}
+            className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 font-bold text-xs disabled:opacity-40 disabled:pointer-events-none transition-all"
+          >
+            <span>الصفحة التالية</span>
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+        </div>
+      )}
 
       {/* Story Reader Modal */}
       {activeStory && (
@@ -309,8 +469,9 @@ export const StoriesView: React.FC<StoriesViewProps> = ({
                   {activeStory.comprehensionQuestion.question}
                 </h4>
 
+                {/* Multiple Choice Options (Shuffled Randomly) */}
                 <div className="grid grid-cols-1 gap-2 pt-1">
-                  {activeStory.comprehensionQuestion.options.map((opt, idx) => {
+                  {shuffledStoryOptions.map((opt, idx) => {
                     const isSelected = selectedAnswer === opt;
                     return (
                       <button
@@ -322,7 +483,7 @@ export const StoriesView: React.FC<StoriesViewProps> = ({
                           }
                         }}
                         disabled={isAnswerChecked}
-                        className={`p-3 rounded-xl border-2 text-xs font-bold text-right transition-all flex items-center justify-between ${
+                        className={`p-3 rounded-xl border-2 text-xs font-bold text-right transition-all flex items-center justify-between min-h-[44px] active:scale-98 ${
                           isSelected
                             ? 'border-emerald-600 bg-emerald-50 text-emerald-950'
                             : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-800'

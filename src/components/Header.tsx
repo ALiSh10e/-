@@ -1,9 +1,9 @@
 import React from 'react';
-import { Volume2, VolumeX, Sparkles, BookOpen, PenTool, Gamepad2, Mic, Users, Award, BookmarkCheck, Heart } from 'lucide-react';
+import { Volume2, VolumeX, Sparkles, BookOpen, PenTool, Gamepad2, Mic, Users, Award, BookmarkCheck, Heart, Tv, Info } from 'lucide-react';
 import { StudentProgress } from '../services/storageService';
 import { offlineAudioService } from '../services/audioService';
 
-export type AppTab = 'lessons' | 'stories' | 'letters' | 'games' | 'audioLab' | 'parents';
+export type AppTab = 'letters' | 'lessons' | 'stories' | 'games' | 'audioLab' | 'about' | 'parents';
 
 interface HeaderProps {
   progress: StudentProgress;
@@ -53,6 +53,19 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Gamification Stats & Controls (Mobile Optimized) */}
           <div className="flex items-center gap-1 sm:gap-2 shrink-0">
+            {/* About App & Video Tour Button */}
+            <button
+              onClick={() => {
+                onTabChange('about');
+                offlineAudioService.playClickSound();
+              }}
+              className="flex items-center gap-1 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-black shadow-xs transition-all min-h-[36px] active:scale-95 animate-pulse"
+              title="حول التطبيق والعرض التقديمي"
+            >
+              <Info className="w-3.5 h-3.5 text-amber-300 shrink-0" />
+              <span>حول التطبيق</span>
+            </button>
+
             {/* Badges Badge */}
             <button
               onClick={() => {
@@ -102,76 +115,95 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Scrollable Navigation Chips on Mobile & Tablet */}
         <nav className="flex items-center gap-1.5 sm:gap-2 mt-2 pt-2 border-t border-slate-100 overflow-x-auto no-scrollbar scroll-smooth touch-pan-x">
+          {/* 1. Letters Tab (First as requested) */}
           <button
-            onClick={() => onTabChange('lessons')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
-              activeTab === 'lessons'
-                ? 'bg-amber-600 text-white shadow-xs'
-                : 'text-slate-600 hover:bg-slate-100'
+            onClick={() => onTabChange('letters')}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
+              activeTab === 'letters'
+                ? 'bg-sky-600 text-white shadow-md ring-2 ring-sky-300'
+                : 'text-slate-700 hover:bg-sky-50'
             }`}
           >
-            <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span>الدروس والوحدات</span>
+            <PenTool className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-200 shrink-0" />
+            <span>الحروف والتتبع ✍️</span>
           </button>
 
+          {/* 2. Lessons Tab */}
+          <button
+            onClick={() => onTabChange('lessons')}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
+              activeTab === 'lessons'
+                ? 'bg-amber-600 text-white shadow-md ring-2 ring-amber-300'
+                : 'text-slate-700 hover:bg-amber-50'
+            }`}
+          >
+            <BookOpen className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-200 shrink-0" />
+            <span>الدروس والوحدات 📖</span>
+          </button>
+
+          {/* 3. Stories Tab */}
           <button
             onClick={() => onTabChange('stories')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
               activeTab === 'stories'
-                ? 'bg-emerald-600 text-white shadow-xs ring-2 ring-emerald-300'
-                : 'text-slate-600 hover:bg-slate-100'
+                ? 'bg-emerald-600 text-white shadow-md ring-2 ring-emerald-300'
+                : 'text-slate-700 hover:bg-emerald-50'
             }`}
           >
             <BookmarkCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 shrink-0" />
-            <span>مكتبة القصص (300)</span>
+            <span>مكتبة القصص (300) 📚</span>
           </button>
 
-          <button
-            onClick={() => onTabChange('letters')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
-              activeTab === 'letters'
-                ? 'bg-sky-600 text-white shadow-xs'
-                : 'text-slate-600 hover:bg-slate-100'
-            }`}
-          >
-            <PenTool className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span>الحروف والتتبع</span>
-          </button>
-
+          {/* 4. Games Tab */}
           <button
             onClick={() => onTabChange('games')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
               activeTab === 'games'
-                ? 'bg-indigo-600 text-white shadow-xs'
-                : 'text-slate-600 hover:bg-slate-100'
+                ? 'bg-indigo-600 text-white shadow-md ring-2 ring-indigo-300'
+                : 'text-slate-700 hover:bg-indigo-50'
             }`}
           >
-            <Gamepad2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span>الأنشطة والألعاب</span>
+            <Gamepad2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-200 shrink-0" />
+            <span>الأنشطة والألعاب 🎮</span>
           </button>
 
+          {/* 5. Audio Lab Tab */}
           <button
             onClick={() => onTabChange('audioLab')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
               activeTab === 'audioLab'
-                ? 'bg-purple-600 text-white shadow-xs'
-                : 'text-slate-600 hover:bg-slate-100'
+                ? 'bg-purple-600 text-white shadow-md ring-2 ring-purple-300'
+                : 'text-slate-700 hover:bg-purple-50'
             }`}
           >
-            <Mic className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-            <span>مختبر النطق</span>
+            <Mic className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-purple-200 shrink-0" />
+            <span>مختبر النطق 🎙️</span>
           </button>
 
+          {/* 6. Parents & Badges Tab */}
           <button
             onClick={() => onTabChange('parents')}
-            className={`flex items-center gap-1.5 px-3 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-bold whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
               activeTab === 'parents'
-                ? 'bg-slate-800 text-white shadow-xs'
-                : 'text-slate-600 hover:bg-slate-100'
+                ? 'bg-purple-600 text-white shadow-md ring-2 ring-purple-300'
+                : 'text-slate-700 hover:bg-purple-50'
             }`}
           >
-            <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-400 shrink-0" />
-            <span>لوحة الأوسمة</span>
+            <Award className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 shrink-0" />
+            <span>لوحة الأوسمة 🏆</span>
+          </button>
+
+          {/* 7. About App Tab (قائمة حول التطبيق في نهاية القائمة بعد الأوسمة) */}
+          <button
+            onClick={() => onTabChange('about')}
+            className={`flex items-center gap-1.5 px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-black whitespace-nowrap transition-all shrink-0 min-h-[38px] active:scale-95 ${
+              activeTab === 'about'
+                ? 'bg-gradient-to-r from-teal-600 to-emerald-700 text-white shadow-md ring-2 ring-teal-300'
+                : 'text-emerald-800 bg-emerald-50/80 hover:bg-emerald-100 border border-emerald-200'
+            }`}
+          >
+            <Info className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-300 shrink-0" />
+            <span>حول التطبيق ℹ️</span>
           </button>
         </nav>
       </div>

@@ -92,6 +92,17 @@ const ACTIVITIES_LIST: MiniGame[] = [
   }
 ];
 
+// Helper function to shuffle array items randomly
+function shuffleArray<T>(array: T[]): T[] {
+  if (!array || array.length <= 1) return array ? [...array] : [];
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
 export const InteractiveActivitiesView: React.FC<InteractiveActivitiesViewProps> = ({
   onProgressUpdate
 }) => {
@@ -112,6 +123,12 @@ export const InteractiveActivitiesView: React.FC<InteractiveActivitiesViewProps>
   }, []);
 
   const currentGame = ACTIVITIES_LIST[currentIdx];
+
+  // Randomized options for current game activity
+  const shuffledGameOptions = React.useMemo(() => {
+    if (!currentGame || !currentGame.options) return [];
+    return shuffleArray(currentGame.options);
+  }, [currentGame?.id, currentIdx]);
 
   const handleOptionClick = (opt: string) => {
     if (isAnswerChecked) return;
@@ -252,17 +269,17 @@ export const InteractiveActivitiesView: React.FC<InteractiveActivitiesViewProps>
           )}
         </div>
 
-        {/* Interaction Area: Multiple Choice */}
+        {/* Interaction Area: Multiple Choice (Shuffled Randomly) */}
         {currentGame.type === 'choice' && (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-            {currentGame.options.map((opt, idx) => {
+            {shuffledGameOptions.map((opt, idx) => {
               const isSelected = selectedOption === opt;
               return (
                 <button
                   key={idx}
                   onClick={() => handleOptionClick(opt)}
                   disabled={isAnswerChecked}
-                  className={`p-4 rounded-xl border-2 text-base font-bold transition-all text-right flex items-center justify-between ${
+                  className={`p-4 rounded-xl border-2 text-base font-bold transition-all text-right flex items-center justify-between min-h-[48px] active:scale-98 ${
                     isSelected
                       ? 'border-emerald-600 bg-emerald-50 text-emerald-950 shadow-xs'
                       : 'border-slate-200 bg-slate-50 hover:bg-slate-100 text-slate-800'
@@ -276,7 +293,7 @@ export const InteractiveActivitiesView: React.FC<InteractiveActivitiesViewProps>
           </div>
         )}
 
-        {/* Interaction Area: Arrangement (Letters / Words) */}
+        {/* Interaction Area: Arrangement (Letters / Words - Shuffled Randomly) */}
         {(currentGame.type === 'arrange_letters' || currentGame.type === 'arrange_words') && (
           <div className="space-y-4 pt-2">
             <div className="min-h-16 p-4 bg-slate-100 border-2 border-dashed border-slate-300 rounded-xl flex items-center justify-center gap-2 flex-wrap">
@@ -297,7 +314,7 @@ export const InteractiveActivitiesView: React.FC<InteractiveActivitiesViewProps>
             </div>
 
             <div className="flex items-center justify-center gap-2.5 flex-wrap">
-              {currentGame.options.map((opt, idx) => {
+              {shuffledGameOptions.map((opt, idx) => {
                 const isPicked = selectedArrangement.includes(opt);
                 return (
                   <button

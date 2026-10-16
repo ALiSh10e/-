@@ -119,14 +119,41 @@ export const LetterLibraryView: React.FC = () => {
 
   return (
     <div className="space-y-4 sm:space-y-6">
-      {/* Banner */}
-      <div className="bg-sky-600 text-white rounded-2xl p-4 sm:p-6 shadow-sm">
-        <h2 className="text-lg sm:text-2xl font-black mb-1">
-          مكتبة الحروف الهجائية والتتبع التفاعلي
-        </h2>
-        <p className="text-xs sm:text-sm text-sky-100">
-          استمع إلى صوت كل حرف بحركاته، وتعرّف على أشكاله، ثم تتبع كتابته بيدك على اللوحة التفاعلية.
-        </p>
+      {/* Child-Friendly Cheerful Banner */}
+      <div className="bg-gradient-to-r from-sky-500 via-teal-500 to-indigo-600 text-white rounded-3xl p-4 sm:p-6 shadow-md border-2 border-sky-300 relative overflow-hidden">
+        <div className="absolute -left-6 -bottom-6 text-7xl opacity-20 pointer-events-none select-none">
+          🎨✏️
+        </div>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 relative z-10">
+          <div>
+            <div className="flex items-center gap-2 flex-wrap mb-1">
+              <span className="text-[11px] font-black px-2.5 py-0.5 rounded-full bg-white/20 text-white border border-white/30 flex items-center gap-1">
+                <span>🌟 ركن الأبطال الصغار</span>
+              </span>
+              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-900 shadow-xs">
+                28 حرفاً مع التتبع
+              </span>
+            </div>
+            <h2 className="text-xl sm:text-3xl font-black tracking-tight">
+              مكتبة الحروف الهجائية والتتبع التفاعلي ✍️🦁
+            </h2>
+            <p className="text-xs sm:text-sm text-sky-100 max-w-xl mt-1 leading-relaxed">
+              استمع لصوت كل حرف بحركاته الفصيحة، وتعرّف على أشكاله، ثم تتبع كتابته بيدك وأصابعك على اللوحة التفاعلية كبطل حقيقي! 🎈
+            </p>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => {
+                offlineAudioService.speakArabic(`حَرْفُ ${selectedLetter.name}. ${selectedLetter.vowels.fatha}، ${selectedLetter.vowels.damma}، ${selectedLetter.vowels.kasra}`);
+              }}
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-2xl bg-white text-sky-900 hover:bg-sky-50 font-black text-xs sm:text-sm shadow-md transition-all active:scale-95"
+            >
+              <Volume2 className="w-4 h-4 text-sky-600 animate-pulse" />
+              <span>استمع للحرف الحالي</span>
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Letters Grid Optimized for Mobile */}

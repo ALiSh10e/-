@@ -15,12 +15,13 @@ import { LetterLibraryView } from './components/LetterLibraryView';
 import { InteractiveActivitiesView } from './components/InteractiveActivitiesView';
 import { AudioLabView } from './components/AudioLabView';
 import { ParentDashboardView } from './components/ParentDashboardView';
-import { Award, Heart, X, BookOpen, BookmarkCheck, PenTool, Gamepad2, Mic, Users, Code } from 'lucide-react';
+import { PresentationVideoView } from './components/PresentationVideoView';
+import { Award, Heart, X, BookOpen, BookmarkCheck, PenTool, Gamepad2, Mic, Users, Code, Tv, Info } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 export default function App() {
   const [progress, setProgress] = useState<StudentProgress>(() => StorageService.loadProgress());
-  const [activeTab, setActiveTab] = useState<AppTab>('lessons');
+  const [activeTab, setActiveTab] = useState<AppTab>('letters');
   const [newBadgeNotification, setNewBadgeNotification] = useState<string | null>(null);
 
   useEffect(() => {
@@ -143,6 +144,13 @@ export default function App() {
             onProgressUpdate={handleProgressUpdate}
           />
         )}
+
+        {/* Tab 7: About the App, Video Walkthrough, Presentation Deck, and Standalone Files */}
+        {activeTab === 'about' && (
+          <PresentationVideoView
+            onNavigateTab={setActiveTab}
+          />
+        )}
       </main>
 
       {/* Clean & Elegant App Footer with Prominent Community Initiative Credit */}
@@ -168,27 +176,43 @@ export default function App() {
         </div>
       </footer>
 
-      {/* Mobile Sticky Bottom Quick Navigation Bar (for screens < 640px) */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-2 py-1 flex items-center justify-around shadow-lg">
+      {/* Mobile Sticky Bottom Quick Navigation Bar (Letters First, Lessons, Stories, About, Games, Parents) */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-1.5 py-1 flex items-center justify-around shadow-lg">
+        {/* 1. Letters First */}
+        <button
+          onClick={() => {
+            setActiveTab('letters');
+            offlineAudioService.playClickSound();
+          }}
+          className={`flex flex-col items-center justify-center py-1 px-1.5 rounded-xl text-[10px] font-bold min-h-[44px] transition-all ${
+            activeTab === 'letters' ? 'text-sky-700 bg-sky-50 font-black' : 'text-slate-500'
+          }`}
+        >
+          <PenTool className="w-4 h-4 mb-0.5" />
+          <span>الحروف</span>
+        </button>
+
+        {/* 2. Lessons */}
         <button
           onClick={() => {
             setActiveTab('lessons');
             offlineAudioService.playClickSound();
           }}
-          className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[10px] font-bold min-h-[44px] transition-all ${
-            activeTab === 'lessons' ? 'text-emerald-700 bg-emerald-50 font-black' : 'text-slate-500'
+          className={`flex flex-col items-center justify-center py-1 px-1.5 rounded-xl text-[10px] font-bold min-h-[44px] transition-all ${
+            activeTab === 'lessons' ? 'text-amber-700 bg-amber-50 font-black' : 'text-slate-500'
           }`}
         >
           <BookOpen className="w-4 h-4 mb-0.5" />
           <span>الدروس</span>
         </button>
 
+        {/* 3. Stories */}
         <button
           onClick={() => {
             setActiveTab('stories');
             offlineAudioService.playClickSound();
           }}
-          className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[10px] font-bold min-h-[44px] transition-all ${
+          className={`flex flex-col items-center justify-center py-1 px-1.5 rounded-xl text-[10px] font-bold min-h-[44px] transition-all ${
             activeTab === 'stories' ? 'text-emerald-700 bg-emerald-50 font-black' : 'text-slate-500'
           }`}
         >
@@ -196,43 +220,46 @@ export default function App() {
           <span>القصص</span>
         </button>
 
-        <button
-          onClick={() => {
-            setActiveTab('letters');
-            offlineAudioService.playClickSound();
-          }}
-          className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[10px] font-bold min-h-[44px] transition-all ${
-            activeTab === 'letters' ? 'text-emerald-700 bg-emerald-50 font-black' : 'text-slate-500'
-          }`}
-        >
-          <PenTool className="w-4 h-4 mb-0.5" />
-          <span>الحروف</span>
-        </button>
-
+        {/* 4. Games */}
         <button
           onClick={() => {
             setActiveTab('games');
             offlineAudioService.playClickSound();
           }}
-          className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[10px] font-bold min-h-[44px] transition-all ${
-            activeTab === 'games' ? 'text-emerald-700 bg-emerald-50 font-black' : 'text-slate-500'
+          className={`flex flex-col items-center justify-center py-1 px-1.5 rounded-xl text-[10px] font-bold min-h-[44px] transition-all ${
+            activeTab === 'games' ? 'text-indigo-700 bg-indigo-50 font-black' : 'text-slate-500'
           }`}
         >
           <Gamepad2 className="w-4 h-4 mb-0.5" />
           <span>الألعاب</span>
         </button>
 
+        {/* 5. Parents & Badges */}
         <button
           onClick={() => {
             setActiveTab('parents');
             offlineAudioService.playClickSound();
           }}
-          className={`flex flex-col items-center justify-center py-1 px-2 rounded-xl text-[10px] font-bold min-h-[44px] transition-all ${
-            activeTab === 'parents' ? 'text-emerald-700 bg-emerald-50 font-black' : 'text-slate-500'
+          className={`flex flex-col items-center justify-center py-1 px-1.5 rounded-xl text-[10px] font-bold min-h-[44px] transition-all ${
+            activeTab === 'parents' ? 'text-purple-700 bg-purple-50 font-black' : 'text-slate-500'
           }`}
         >
           <Award className="w-4 h-4 mb-0.5" />
           <span>الأوسمة</span>
+        </button>
+
+        {/* 6. About the App (حول التطبيق في أسفل القائمة بعد الأوسمة) */}
+        <button
+          onClick={() => {
+            setActiveTab('about');
+            offlineAudioService.playClickSound();
+          }}
+          className={`flex flex-col items-center justify-center py-1 px-1.5 rounded-xl text-[10px] font-bold min-h-[44px] transition-all ${
+            activeTab === 'about' ? 'text-teal-700 bg-teal-50 font-black' : 'text-slate-500'
+          }`}
+        >
+          <Info className="w-4 h-4 mb-0.5 text-amber-500" />
+          <span>حول التطبيق</span>
         </button>
       </div>
     </div>

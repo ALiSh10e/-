@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>العرض التقديمي الشامل – تطبيق أَقْرَأُهَا صَحّ لتعليم العربية</title>
+  <meta name="description" content="العرض التقديمي والفيديو التعريفي الشامل لتطبيق أقرأها صح التعليمي - مبادرة مجتمعية م/ شوقي حسن الجعور">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #059669;
+      --primary-dark: #064e3b;
+      --secondary: #d97706;
+      --accent: #0284c7;
+      --dark: #0f172a;
+      --light: #f8fafc;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', 'Tajawal', system-ui, -apple-system, sans-serif;
+    }
+    body {
+      background-color: #0b1120;
+      color: #f1f5f9;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #064e3b, #0f172a, #1e1b4b);
+      border-bottom: 2px solid #059669;
+      padding: 16px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo-badge {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, #10b981, #0d9488, #0284c7);
+      border: 2px solid #34d399;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    }
+    .brand-title h1 {
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+    }
+    .brand-title p {
+      font-size: 12px;
+      color: #a7f3d0;
+      font-weight: 600;
+    }
+    .initiative-tag {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fde68a;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 4px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .nav-btn.active {
+      background: #059669;
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(5, 150, 105, 0.5);
+    }
+    main {
+      max-width: 1200px;
+      width: 100%;
+      margin: 24px auto;
+      padding: 0 16px;
+      flex: 1;
+    }
+    /* Video Mode */
+    .video-card {
+      background: #0f172a;
+      border: 2px solid #1e293b;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+      margin-bottom: 24px;
+    }
+    .video-viewport {
+      aspect-ratio: 16 / 9;
+      min-height: 380px;
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px;
+      border-bottom: 2px solid #1e293b;
+    }
+    .scene-badge-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+    .scene-pill {
+      background: #dc2626;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .scene-title-badge {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(8px);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      color: #fde047;
+      border: 1px solid rgba(255,255,255,0.15);
+      font-weight: 700;
+    }
+    .scene-stage {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      z-index: 10;
+      margin: auto 0;
+    }
+    .scene-info {
+      flex: 1;
+      max-width: 650px;
+    }
+    .scene-info h2 {
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: #ffffff;
+      line-height: 1.25;
+    }
+    .scene-info p {
+      font-size: 16px;
+      color: #94a3b8;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+    .highlights-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+    }
+    .highlight-item {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 8px 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #e2e8f0;
+    }
+    .highlight-item span.icon {
+      color: #10b981;
+      font-size: 16px;
+    }
+    .subtitles-box {
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+      padding: 14px 20px;
+      text-align: center;
+      margin-top: 12px;
+      z-index: 10;
+    }
+    .subtitles-label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #f59e0b;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .subtitles-text {
+      font-size: 16px;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+    .video-controls {
+      padding: 16px 24px;
+      background: #090e17;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .timeline-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .timeline-bar {
+      flex: 1;
+      height: 8px;
+      background: #1e293b;
+      border-radius: 4px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .timeline-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #10b981, #06b6d4, #f59e0b);
+      width: 0%;
+      transition: width 0.1s linear;
+    }
+    .time-label {
+      font-size: 12px;
+      font-family: monospace;
+      color: #64748b;
+      min-width: 45px;
+    }
+    .btn-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .action-btn {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #f1f5f9;
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .action-btn:hover {
+      background: #334155;
+    }
+    .action-btn.play-btn {
+      background: #059669;
+      border-color: #10b981;
+      color: white;
+      padding: 8px 24px;
+      font-size: 14px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+    }
+    .action-btn.play-btn:hover {
+      background: #047857;
+    }
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .chapter-card {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 16px;
+      padding: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .chapter-card:hover {
+      border-color: #059669;
+      background: #1e293b;
+    }
+    .chapter-card.active {
+      border-color: #10b981;
+      background: rgba(16, 185, 129, 0.1);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.2);
+    }
+    .chapter-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: #1e293b;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+    .chapter-card.active .chapter-num {
+      background: #059669;
+      color: white;
+    }
+    .chapter-content h4 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+    .chapter-content p {
+      font-size: 11px;
+      color: #94a3b8;
+    }
+    /* Slides Mode */
+    .slide-deck {
+      display: none;
+    }
+    .slide-card {
+      background: #ffffff;
+      color: #0f172a;
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .slide-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #f1f5f9;
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    .slide-category {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 4px 12px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .slide-number {
+      background: #0f172a;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .slide-body h2 {
+      font-size: 28px;
+      font-weight: 900;
+      color: #0f172a;
+      margin-bottom: 6px;
+    }
+    .slide-body h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 24px;
+    }
+    .slide-points-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+    }
+    .slide-point {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      padding: 16px;
+      border-radius: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+      color: #334155;
+    }
+    .slide-point-num {
+      width: 24px;
+      height: 24px;
+      background: #059669;
+      color: white;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .slide-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 2px solid #f1f5f9;
+      padding-top: 18px;
+      margin-top: 24px;
+    }
+    /* About / Downloads Section */
+    .about-section {
+      background: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 20px;
+      padding: 24px;
+      margin-top: 30px;
+    }
+    .about-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .about-header h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+    }
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .feature-card {
+      background: #1e293b;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 13px;
+    }
+    .feature-card strong {
+      color: #38bdf8;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
+    footer {
+      background: #060911;
+      padding: 24px 16px;
+      text-align: center;
+      border-top: 1px solid #1e293b;
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 40px;
+    }
+    .initiative-credit-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      padding: 8px 18px;
+      border-radius: 20px;
+      color: #10b981;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+      header, .video-controls, .nav-tabs, footer, .chapters-grid {
+        display: none !important;
+      }
+      .slide-deck {
+        display: block !important;
+      }
+      .slide-card {
+        page-break-after: always;
+        box-shadow: none;
+        border: 1px solid #ccc;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="logo-badge">صَحّ</div>
+        <div class="brand-title">
+          <h1>أَقْرَأُهَا صَحّ – العرض التقديمي الشامل</h1>
+          <p>تطبيق تعليم اللغة العربية للمرحلة الابتدائية (الصفوف 1 - 6)</p>
+        </div>
+      </div>
+
+      <div class="initiative-tag">
+        ❤️ تم التطوير بواسطة مبادرة مجتمعية م/ شوقي حسن الجعور
+      </div>
+
+      <div class="nav-tabs">
+        <button id="tabVideoBtn" class="nav-btn active" onclick="switchMode('video')">
+          🎬 الفيديو التعريفي الناطق
+        </button>
+        <button id="tabSlidesBtn" class="nav-btn" onclick="switchMode('slides')">
+          📊 شرائح العرض التقديمي
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ==================== MODE 1: VIDEO WALKTHROUGH ==================== -->
+    <div id="videoSection">
+      <div class="video-card">
+        <!-- Virtual Video Stage Screen -->
+        <div class="video-viewport">
+          <div class="scene-badge-row">
+            <span id="sceneBadge" class="scene-pill">المشهد 1 من 7</span>
+            <span id="sceneCategory" class="scene-title-badge">مبادرة م/ شوقي حسن الجعور</span>
+          </div>
+
+          <div class="scene-stage">
+            <div class="scene-info">
+              <h2 id="sceneTitle">مرحباً بكم في تطبيق «أَقْرَأُهَا صَحّ»</h2>
+              <p id="sceneSubtitle">المبادرة المجتمعية التطوعية لتعلّم وإتقان لغة الضاد</p>
+              <div id="sceneHighlights" class="highlights-grid">
+                <!-- Injected via JavaScript -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Video Subtitles / Live Narration Banner -->
+          <div class="subtitles-box">
+            <div class="subtitles-label">
+              <span>🔊</span>
+              <span id="speakingStatus">النص الصوتي للراوي:</span>
+            </div>
+            <p id="subtitlesText" class="subtitles-text">
+              أهلاً ومرحباً بكم في تطبيق أقرأها صح، المبادرة المجتمعية التعليمية الرائدة بإشراف المهندس شوقي حسن الجعور...
+            </p>
+          </div>
+        </div>
+
+        <!-- Video Player Controls -->
+        <div class="video-controls">
+          <div class="timeline-container">
+            <span id="currentTime" class="time-label">0:00</span>
+            <div class="timeline-bar" onclick="seekTimeline(event)">
+              <div id="timelineProgress" class="timeline-progress"></div>
+            </div>
+            <span id="totalTime" class="time-label">0:15</span>
+          </div>
+
+          <div class="btn-row">
+            <div style="display: flex; gap: 8px;">
+              <button class="action-btn" onclick="prevScene()">⏮️ السابق</button>
+              <button id="playBtn" class="action-btn play-btn" onclick="togglePlay()">▶️ تشغيل الفيديو</button>
+              <button class="action-btn" onclick="nextScene()">⏭️ التالي</button>
+              <button class="action-btn" onclick="replayScene()">🔄 إعادة المشهد</button>
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+              <button id="voiceToggleBtn" class="action-btn" onclick="toggleVoice()">🔊 التعليق الصوتي: مفعّل</button>
+              <button class="action-btn" onclick="window.print()">🖨️ طباعة العرض</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scenes Grid Selector -->
+      <h3 style="font-size: 16px; font-weight: 800; margin-bottom: 12px; color: #e2e8f0;">
+        📑 مشاهد وفصول الفيديو التعريفي (انقر للانتقال الفوري):
+      </h3>
+      <div id="chaptersGrid" class="chapters-grid">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- ==================== MODE 2: SLIDES PRESENTATION ==================== -->
+    <div id="slidesSection" class="slide-deck">
+      <div class="slide-card">
+        <div class="slide-header">
+          <div style="display: flex; gap: 8px; align-items: center;">
+            <span id="slideNumBadge" class="slide-number">الشريحة 1 من 8</span>
+            <span id="slideCategoryBadge" class="slide-category">بطاقة التعريف</span>
+          </div>
+          <button class="action-btn" style="background: #059669; color: white;" onclick="speakCurrentSlide()">
+            🔊 استمع لشرح الشريحة
+          </button>
+        </div>
+
+        <div class="slide-body">
+          <h2 id="slideTitle">تطبيق «أَقْرَأُهَا صَحّ» لتعليم اللغة العربية</h2>
+          <h3 id="slideSubtitle">عرض تقديمي شامل لملامح ومكونات المبادرة التعليمية</h3>
+          <div id="slidePointsGrid" class="slide-points-grid">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <div class="slide-footer">
+          <button class="action-btn" onclick="prevSlide()">◀️ الشريحة السابقة</button>
+          <div id="slideDots" style="display: flex; gap: 6px;"></div>
+          <button class="action-btn" style="background: #059669; color: white;" onclick="nextSlide()">الشريحة التالية ▶️</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- About & Technical Guide Box -->
+    <div class="about-section">
+      <div class="about-header">
+        <span style="font-size: 24px;">ℹ️</span>
+        <h3>عن المبادرة والخصائص التقنية لتطبيق «أَقْرَأُهَا صَحّ»</h3>
+      </div>
+      <p style="font-size: 13px; color: #94a3b8; margin-bottom: 16px;">
+        تم تطوير هذا التطبيق كعمل تطوعي مجتمعي خالص بإشراف وتطوير <strong>م/ شوقي حسن الجعور</strong> لخدمة أطفالنا وتلاميذ المرحلة الابتدائية.
+      </p>
+
+      <div class="features-list">
+        <div class="feature-card">
+          <strong>⚡ عمل كامل دون إنترنت (Offline-First)</strong>
+          جميع الدروس والحروف والأنشطة والقصص والصوتيات تعمل محلياً بنسبة 100%.
+        </div>
+        <div class="feature-card">
+          <strong>🎨 تصميم مبهج وجذاب للأطفال</strong>
+          واجهات تفاعلية مريحة للعين بأيقونات ملونة ورسوم طفولية تعزز شغف التعلّم.
+        </div>
+        <div class="feature-card">
+          <strong>🛡️ بيئة آمنة وخالية من الإعلانات</strong>
+          لا يحتوي على أي إعلانات أو روابط خارجية أو تعقب لضمان خصوصية وتركيز الطفل.
+        </div>
+        <div class="feature-card">
+          <strong>🏆 نظام تحفيز وتشجيع بالأوسمة</strong>
+          منح أوسمة ذهبية تذكارية عند تحقيق الدرجة الكاملة في الاختبارات التقييمية.
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="action-btn" onclick="window.print()">🖨️ طباعة العرض التقديمي كملف PDF</button>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="initiative-credit-box">
+      ❤️ تم التطوير بواسطة مبادرة مجتمعية م/ شوقي حسن الجعور
+    </div>
+    <p>جميع الحقوق وقف تعليمي خيري مفتوح لخدمة لغة القرآن الكريم وأطفالنا الصغار</p>
+  </footer>
+
+  <script>
+    // Video Scenes Definition
+    const SCENES = [
+      {
+        id: 1,
+        title: "مرحباً بكم في تطبيق «أَقْرَأُهَا صَحّ»",
+        subtitle: "المبادرة المجتمعية التطوعية لتعلّم وإتقان لغة الضاد",
+        category: "مبادرة م/ شوقي حسن الجعور",
+        narration: "أهلاً ومرحباً بكم في تطبيق أقرأها صح، المبادرة المجتمعية التعليمية الرائدة بإشراف المهندس شوقي حسن الجعور. صُمم هذا التطبيق خصيصاً لتمكين تلاميذ المرحلة الابتدائية من الصف الأول إلى السادس من إتقان القراءة والكتابة والنطق الفصيح بطريقة تفاعلية وممتعة تعمل بالكامل دون الحاجة إلى إنترنت.",
+        duration: 15,
+        highlights: [
+          "تطبيق تعليمي تفاعلي مجاني 100% وغير ربحي",
+          "يعمل محلياً بالكامل دون الحاجة لاتصال بالإنترنت",
+          "تغطية شاملة لمقررات اللغة العربية للصفوف 1-6",
+          "تصميم طفولي بهيج وجذاب يراعي أحدث المعايير التربوية"
+        ]
+      },
+      {
+        id: 2,
+        title: "ركن الحروف الهجائية والتتبع التفاعلي",
+        subtitle: "رسم الحروف بالأصابع مع نطق الحركات والكلمات",
+        category: "الأساسيات الهجائية",
+        narration: "تبدأ الرحلة التعليمية الماتعة بركن الحروف الهجائية الثري. هنا يتدرب الطفل على رسم كل حرف بيده وأصابعه على لوحة الرسم التفاعلية، مع الاستماع للنطق الصوتي الفصيح للحرف بالحركات الثلاث: الفتحة والضمة والكسرة، بالإضافة إلى أمثلة مصورة وكلمات نموذجية.",
+        duration: 15,
+        highlights: [
+          "28 حرفاً هجائياً مع أشكال الحرف (أول، وسط، آخر)",
+          "لوحة رسم وتتبع حسّي حركي بالأصابع",
+          "نطق صوتي فصيح للحروف بالحركات القصيرة",
+          "كلمات مصورة لكل حرف مع إمكانية الاستماع الفوري"
+        ]
+      },
+      {
+        id: 3,
+        title: "المنهج الدراسي والـ 30 نشاطاً لكل درس",
+        subtitle: "تغطية منهجية متكاملة لجميع صفوف المرحلة الابتدائية",
+        category: "المناهج الدراسية",
+        narration: "يغطي التطبيق كافة جوانب تعليم اللغة العربية عبر وحدات دراسية مدروسة لجميع الصفوف من الأول حتى السادس. ويتميز الدرس الواحد باحتوائه على أكثر من ثلاثين درساً ونشاطاً فرعياً يجمع بين القراءة الإجهادية، والتهجئة، وتمييز المدود والتاءات، مع مؤشرات بصرية تشجع الطفل على الإنجاز.",
+        duration: 16,
+        highlights: [
+          "مناهج الصفوف الستة مصنفة حسب الفصل والوحدة الدراسية",
+          "أكثر من 30 تدريباً ونشاطاً نوعياً لكل درس تعليمي",
+          "تدريبات على التمييز السمعي، الشدة، والتنوين، واللامات",
+          "شريط تقدم ديناميكي يرصد إنجاز التلميذ لحظة بلحظة"
+        ]
+      },
+      {
+        id: 4,
+        title: "نظام الاختبارات التقييمية ومنظومة الأوسمة",
+        subtitle: "قياس الفهم ومنح أوسمة ذهبية استثنائية عند العلامة الكاملة",
+        category: "التقويم والتعزيز",
+        narration: "لترسيخ المعرفة، يخوض التلميذ بعد كل درس اختباراً تقييمياً ذكياً متعدد الأسئلة، مع إمكانية قراءة الأسئلة صوتياً. وعند تحقيق الدرجة الكاملة مئة بالمئة، يُمنح التلميذ وساماً تشجيعياً خاصاً وتُطلق احتفالية مبهجة لتعزيز ثقته بنفسه واستمراره في التعلم.",
+        duration: 15,
+        highlights: [
+          "اختبارات تقييمية (Quizzes) تتبع كل درس لقياس الفهم",
+          "إمكانية الاستماع لنص السؤال والخيارات صوتياً لدعم التعلم",
+          "منح أوسمة الشرف الذهبية عند الحصول على 100%",
+          "احتفالية بصرية وصوتية محفزة فور فتح كل وسام جديد"
+        ]
+      },
+      {
+        id: 5,
+        title: "مكتبة القصص القرائية الكبرى (300 قصة)",
+        subtitle: "50 قصة هادفة وممتعة لكل صف دراسي مع قارئ صوتي متزامن",
+        category: "الإثراء القرائي",
+        narration: "يحتوي التطبيق على أكبر مكتبة قصصية للأطفال تضم ثلاثمائة قصة شيقة؛ خمسون قصة مخصصة لكل صف دراسي. القصص مزودة بنطق صوتي متقن يمكن إيقافه وتشغيله، بالإضافة إلى أسئلة الفهم الاستيعابي والقيم الأخلاقية وميزة تكبير الخط للقراءة المريحة.",
+        duration: 16,
+        highlights: [
+          "300 قصة متدرجة لغوياً وقيمياً (50 قصة لكل صف من 1 إلى 6)",
+          "قراءة صوتية فصيحة مع إمكانية الاستماع للقصة كاملة",
+          "أسئلة فهم قرائي ذكية بعد كل قصة لاختبار الاستيعاب",
+          "أدوات تحكم سهلة في حجم النص والتبديل بين الصفوف"
+        ]
+      },
+      {
+        id: 6,
+        title: "الأنشطة التفاعلية ومختبر النطق الصوتي",
+        subtitle: "التعلم باللعب وتدريب مخارج الحروف الصائتة والصامتة",
+        category: "المهارات الشفوية",
+        narration: "يتضمن التطبيق ألعاباً تعليمية تفاعلية كلعبة الذاكرة اللغوية ومطابقة الحركات والكلمات، إلى جانب مختبر النطق الصوتي الذاتي الذي يُمكّن التلميذ من الاستماع لأي كلمة والتدرب على نطقها الصحيح ومقارنة صوته بمخارج الحروف الفصيحة.",
+        duration: 15,
+        highlights: [
+          "ألعاب مطابقة الحروف والكلمات وتحديات الذاكرة البصرية",
+          "مختبر النطق للتحقق الذاتي من مخارج الحروف والمدود",
+          "مؤثرات صوتية محفزة تدعم التغذية الراجعة الإيجابية",
+          "بيئة تعليمية خالية تماماً من الإعلانات والمشتتات"
+        ]
+      },
+      {
+        id: 7,
+        title: "لوحة ولي الأمر وبناء تطبيق الأندرويد",
+        subtitle: "متابعة التقدم التربوي وملف سير العمل البرمجي لبناء APK",
+        category: "التصدير والمتابعة",
+        narration: "وفي الختام، توفر لوحة ولي الأمر تقريراً دقيقاً عن عدد النجوم، والأوسمة، والدروس المكتملة، مع إمكانية تصفير أو حفظ التقدم. كما يتضمن التطبيق ملف سير عمل متكامل لبناء وتصدير التطبيق كملف أندرويد حقيقي بصيغة إي بي كي ليعمل على جميع الهواتف المحمولة واللوحية.",
+        duration: 16,
+        highlights: [
+          "لوحة متابعة لولي الأمر ترصد إنجازات الطفل والأوسمة",
+          "ملف سير عمل GitHub Actions لبناء وتصدير ملف APK حقيقي",
+          "أيقونة رسمية احترافية معتمدة وواجهات متوافقة مع الجوال",
+          "إهداء من مبادرة م/ شوقي حسن الجعور المجتمعية لخدمة أبنائنا"
+        ]
+      }
+    ];
+
+    // Slides Definition
+    const SLIDES = [
+      {
+        id: 1,
+        title: "تطبيق «أَقْرَأُهَا صَحّ» لتعليم اللغة العربية",
+        subtitle: "عرض تقديمي شامل لملامح ومكونات المبادرة التعليمية",
+        category: "بطاقة التعريف",
+        points: [
+          "مبادرة مجتمعية تطوعية غير ربحية موجهة لتلاميذ مرحلة التعليم الأساسي (الصفوف 1-6).",
+          "إشراف وتطوير: م/ شوقي حسن الجعور، بهدف ترسيخ إتقان القراءة والكتابة والنطق الفصيح.",
+          "تطبيق يعمل بالكامل دون الحاجة إلى إنترنت (Offline-First)، آمناً تماماً وخالياً من الإعلانات.",
+          "متوافق مع الهواتف الذكية، الأجهزة اللوحية، وشاشات العرض المدرسية وأجهزة أندرويد."
+        ]
+      },
+      {
+        id: 2,
+        title: "الرؤية والأهداف التربوية للمشروع",
+        subtitle: "غرس محبة لغة الضاد وبناء الثقة اللغوية لدى الناشئة",
+        category: "الأهداف التربوية",
+        points: [
+          "معالجة صعوبات القراءة والتهجئة المبكرة بطرق حسية وبصرية وسمعية تفاعلية.",
+          "توفير بيئة تعليمية محفزة تجمع بين المتعة والمنهجية المدرسية الدقيقة.",
+          "تمكين التلميذ من التعلم الذاتي المستقل مع توفير أدوات متابعة واضحة لولي الأمر والمعلم.",
+          "إتاحة المحتوى التعليمي عالي الجودة لكافة التلاميذ مجاناً وفي كل الظروف."
+        ]
+      },
+      {
+        id: 3,
+        title: "الركن الأول: مكتبة الحروف والتتبع التفاعلي",
+        subtitle: "التعلم الحسي الحركي لرسم الحركات والكلمات",
+        category: "الأساسيات الهجائية",
+        points: [
+          "جميع الحروف الهجائية الـ 28 مع مواضعها في الكلمة (أول، وسط، آخر).",
+          "لوحة رسم تفاعلية ترشد التلميذ لرسم الحرف بيده وأصابعه بدقة مع مسح وتعديل.",
+          "نطق صوتي فصيح للحرف بالحركات القصيرة (الفتحة، الضمة، الكسرة).",
+          "كلمات تدريبية مصورة لكل حرف مع إمكانية الاستماع الفوري عند النقر."
+        ]
+      },
+      {
+        id: 4,
+        title: "الركن الثاني: الدروس المنهجية الممتدة (+30 نشاطاً)",
+        subtitle: "مناهج الصفوف 1 إلى 6 بأكثر من 30 تمريناً لكل درس",
+        category: "المناهج الدراسية",
+        points: [
+          "مناهج دراسية متدرجة تغطي الصفوف من الأول إلى السادس بالتفصيل.",
+          "كل درس يحتوي على أكثر من ثلاثين نشاطاً فرعياً وتدريباً تفاعلياً متنوعاً.",
+          "تمارين متخصصة في: المدود، التنوين، الشدة، اللام الشمسية والقمرية، والإملاء.",
+          "مؤشرات تقدم ذكية تسجل إنجازات التلميذ لحظة بلحظة وتشجعه على الاستمرار."
+        ]
+      },
+      {
+        id: 5,
+        title: "الركن الثالث: محرك الاختبارات التقييمية (Quizzes) والأوسمة",
+        subtitle: "نظام قياس فوري مع تكريم التلميذ بالدرجة الكاملة",
+        category: "التقويم والتعزيز",
+        points: [
+          "اختبارات تقييمية ذكية ترافق كل درس للتأكد من استيعاب المفاهيم اللغوية.",
+          "دعم كامل للقراءة الصوتية لنصوص الأسئلة والخيارات لمساعدة التلاميذ الصغار.",
+          "منح أوسمة ذهبية تذكارية فورية عند حصول التلميذ على الدرجة الكاملة 100%.",
+          "احتفالية تشجيعية بمؤثرات صوتية محفزة تدفع التلميذ للمثابرة والتفوق."
+        ]
+      },
+      {
+        id: 6,
+        title: "الركن الرابع: مكتبة القصص القرائية الكبرى (300 قصة)",
+        subtitle: "50 قصة هادفة وممتعة لكل صف دراسي بصوت فصيح",
+        category: "الإثراء القرائي",
+        points: [
+          "مكتبة ضخمة تضم 300 قصة تعليمية وتربوية قيّمة (50 قصة لكل صف من 1 إلى 6).",
+          "ميزة الاستماع الصوتي الفصيح للنص كاملاً بصوت نقي متسلسل.",
+          "أسئلة فهم واستيعاب تلي كل قصة لتعميق التفكير النقدي والقيم الأخلاقية.",
+          "إمكانية التحكم بحجم الخط وتبديل الصفوف بكل سهولة وسلاسة."
+        ]
+      },
+      {
+        id: 7,
+        title: "الركن الخامس: الأنشطة ومختبر النطق والتحقق الصوتي",
+        subtitle: "التعلم باللعب واختبار النطق الذاتي للتلميذ",
+        category: "المهارات الشفوية",
+        points: [
+          "ألعاب لغوية هادفة مثل مطابقة الكلمات بالحروف وبطاقات الذاكرة المعجمية.",
+          "مختبر النطق الصوتي الذي يتيح نطق أي كلمة بالتشكيل والاستماع إليها فوراً.",
+          "ميزة التدريب الصوتي ومقارنة نطق التلميذ بالمخارج الصوتية الصحيحة.",
+          "تعزيز المتعة البصرية وتفاعل الأطفال مع الرسوم والأيقونات الجذابة."
+        ]
+      },
+      {
+        id: 8,
+        title: "لوحة المتابعة والتحفيز المستمر",
+        subtitle: "متابعة إنجازات التلميذ خطوة بخطوة وتعزيز ثقته بنفسه",
+        category: "المتابعة والتحفيز",
+        points: [
+          "لوحة واضحة لولي الأمر والمعلم ترصد نسبة إنجاز كل درس وقصة وتدريب بدقة.",
+          "سجل تفاعلي للأوسمة والنقاط والنجوم المحفزة لتعزيز الإيجابية لدى التلميذ.",
+          "واجهات هادئة ومريحة خالية من أي مشتتات أو إعلانات لتوفير بيئة تعليمية آمنة ومريحة.",
+          "إمكانية إعادة التدريبات والأنشطة في أي وقت لمزيد من الإتقان والطلاقة اللغوية."
+        ]
+      }
+    ];
+
+    let currentSceneIdx = 0;
+    let currentSlideIdx = 0;
+    let isPlaying = false;
+    let voiceEnabled = true;
+    let sceneTimer = null;
+    let progressTimer = null;
+    let elapsedSeconds = 0;
+
+    // Speech Synthesis helper
+    function speakArabic(text) {
+      if (!voiceEnabled || !('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'ar-SA';
+      utter.rate = 0.9;
+      window.speechSynthesis.speak(utter);
+    }
+
+    function renderScene(idx) {
+      const s = SCENES[idx];
+      document.getElementById('sceneBadge').textContent = `المشهد ${idx + 1} من ${SCENES.length}`;
+      document.getElementById('sceneCategory').textContent = s.category;
+      document.getElementById('sceneTitle').textContent = s.title;
+      document.getElementById('sceneSubtitle').textContent = s.subtitle;
+      document.getElementById('subtitlesText').textContent = s.narration;
+      document.getElementById('totalTime').textContent = `0:${s.duration < 10 ? '0' : ''}${s.duration}`;
+
+      // Highlights
+      const hContainer = document.getElementById('sceneHighlights');
+      hContainer.innerHTML = '';
+      s.highlights.forEach(h => {
+        const item = document.createElement('div');
+        item.className = 'highlight-item';
+        item.innerHTML = `<span class="icon">✓</span> <span>${h}</span>`;
+        hContainer.appendChild(item);
+      });
+
+      // Update chapters cards
+      document.querySelectorAll('.chapter-card').forEach((c, i) => {
+        if (i === idx) c.classList.add('active');
+        else c.classList.remove('active');
+      });
+
+      elapsedSeconds = 0;
+      updateProgressBar(0);
+    }
+
+    function renderChapters() {
+      const container = document.getElementById('chaptersGrid');
+      container.innerHTML = '';
+      SCENES.forEach((s, idx) => {
+        const card = document.createElement('div');
+        card.className = `chapter-card ${idx === 0 ? 'active' : ''}`;
+        card.onclick = () => {
+          currentSceneIdx = idx;
+          renderScene(idx);
+          if (isPlaying) {
+            startScenePlayback();
+          }
+        };
+        card.innerHTML = `
+          <div class="chapter-num">${idx + 1}</div>
+          <div class="chapter-content">
+            <h4>${s.title}</h4>
+            <p>${s.subtitle}</p>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updateProgressBar(pct) {
+      document.getElementById('timelineProgress').style.width = pct + '%';
+      const s = SCENES[currentSceneIdx];
+      const cur = Math.round((pct / 100) * s.duration);
+      document.getElementById('currentTime').textContent = `0:${cur < 10 ? '0' : ''}${cur}`;
+    }
+
+    function startScenePlayback() {
+      clearInterval(progressTimer);
+      clearTimeout(sceneTimer);
+
+      const s = SCENES[currentSceneIdx];
+      speakArabic(s.narration);
+
+      const totalMs = s.duration * 1000;
+      const stepMs = 100;
+      let elapsed = 0;
+
+      progressTimer = setInterval(() => {
+        elapsed += stepMs;
+        const pct = Math.min(100, (elapsed / totalMs) * 100);
+        updateProgressBar(pct);
+      }, stepMs);
+
+      sceneTimer = setTimeout(() => {
+        if (currentSceneIdx < SCENES.length - 1) {
+          currentSceneIdx++;
+          renderScene(currentSceneIdx);
+          startScenePlayback();
+        } else {
+          pauseVideo();
+          updateProgressBar(100);
+        }
+      }, totalMs);
+    }
+
+    function togglePlay() {
+      if (isPlaying) {
+        pauseVideo();
+      } else {
+        isPlaying = true;
+        document.getElementById('playBtn').innerHTML = '⏸️ إيقاف مؤقت';
+        startScenePlayback();
+      }
+    }
+
+    function pauseVideo() {
+      isPlaying = false;
+      document.getElementById('playBtn').innerHTML = '▶️ تشغيل الفيديو';
+      clearInterval(progressTimer);
+      clearTimeout(sceneTimer);
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+    }
+
+    function nextScene() {
+      if (currentSceneIdx < SCENES.length - 1) {
+        currentSceneIdx++;
+        renderScene(currentSceneIdx);
+        if (isPlaying) startScenePlayback();
+      }
+    }
+
+    function prevScene() {
+      if (currentSceneIdx > 0) {
+        currentSceneIdx--;
+        renderScene(currentSceneIdx);
+        if (isPlaying) startScenePlayback();
+      }
+    }
+
+    function replayScene() {
+      renderScene(currentSceneIdx);
+      if (isPlaying) startScenePlayback();
+    }
+
+    function toggleVoice() {
+      voiceEnabled = !voiceEnabled;
+      const btn = document.getElementById('voiceToggleBtn');
+      if (voiceEnabled) {
+        btn.textContent = '🔊 التعليق الصوتي: مفعّل';
+        btn.style.color = '#f1f5f9';
+      } else {
+        btn.textContent = '🔇 التعليق الصوتي: معطّل';
+        btn.style.color = '#ef4444';
+        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      }
+    }
+
+    // Slide Mode
+    function renderSlide(idx) {
+      const s = SLIDES[idx];
+      document.getElementById('slideNumBadge').textContent = `الشريحة ${idx + 1} من ${SLIDES.length}`;
+      document.getElementById('slideCategoryBadge').textContent = s.category;
+      document.getElementById('slideTitle').textContent = s.title;
+      document.getElementById('slideSubtitle').textContent = s.subtitle;
+
+      const pGrid = document.getElementById('slidePointsGrid');
+      pGrid.innerHTML = '';
+      s.points.forEach((p, i) => {
+        const item = document.createElement('div');
+        item.className = 'slide-point';
+        item.innerHTML = `<div class="slide-point-num">${i + 1}</div> <div>${p}</div>`;
+        pGrid.appendChild(item);
+      });
+
+      // Dots
+      const dotsContainer = document.getElementById('slideDots');
+      dotsContainer.innerHTML = '';
+      SLIDES.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.style.width = i === idx ? '24px' : '8px';
+        dot.style.height = '8px';
+        dot.style.borderRadius = '4px';
+        dot.style.background = i === idx ? '#059669' : '#cbd5e1';
+        dot.style.transition = 'all 0.2s';
+        dot.style.cursor = 'pointer';
+        dot.onclick = () => {
+          currentSlideIdx = i;
+          renderSlide(i);
+        };
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function speakCurrentSlide() {
+      const s = SLIDES[currentSlideIdx];
+      const text = `${s.title}. ${s.subtitle}. النقاط: ${s.points.join('. ')}`;
+      speakArabic(text);
+    }
+
+    function nextSlide() {
+      if (currentSlideIdx < SLIDES.length - 1) {
+        currentSlideIdx++;
+        renderSlide(currentSlideIdx);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlideIdx > 0) {
+        currentSlideIdx--;
+        renderSlide(currentSlideIdx);
+      }
+    }
+
+    function switchMode(mode) {
+      if (mode === 'video') {
+        document.getElementById('videoSection').style.display = 'block';
+        document.getElementById('slidesSection').style.display = 'none';
+        document.getElementById('tabVideoBtn').classList.add('active');
+        document.getElementById('tabSlidesBtn').classList.remove('active');
+      } else {
+        pauseVideo();
+        document.getElementById('videoSection').style.display = 'none';
+        document.getElementById('slidesSection').style.display = 'block';
+        document.getElementById('tabVideoBtn').classList.remove('active');
+        document.getElementById('tabSlidesBtn').classList.add('active');
+        renderSlide(currentSlideIdx);
+      }
+    }
+
+    // Keyboard navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        if (document.getElementById('slidesSection').style.display === 'block') nextSlide();
+        else nextScene();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        if (document.getElementById('slidesSection').style.display === 'block') prevSlide();
+        else prevScene();
+      } else if (e.key === ' ') {
+        e.preventDefault();
+        if (document.getElementById('videoSection').style.display !== 'none') togglePlay();
+      }
+    });
+
+    // Initialize
+    renderChapters();
+    renderScene(0);
+    renderSlide(0);
+  </script>
+</body>
+</html>

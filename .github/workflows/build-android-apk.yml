@@ -1,4 +1,4 @@
-name: بناء تطبيق أندرويد لغتي اليمنية (Build Android APK)
+name: بناء وتصدير تطبيق أَقْرَأُهَا صَحّ (Build Aqraha Sah Android APK)
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: بناء وتصدير ملف APK الفعلي (Build APK)
+    name: بناء وتصدير ملف APK لتطبيق أقرأها صح (Build APK)
     runs-on: ubuntu-latest
 
     steps:
